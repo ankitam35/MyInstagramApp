@@ -1,10 +1,32 @@
-import React from 'react';
-import { View, StyleSheet, TouchableOpacity, ImageSourcePropType } from 'react-native';
+import React, {useState} from 'react';
+import {
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  ImageSourcePropType,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import PostView from '../components/PostView';
+import AddPostScreen from '../components/AddPostScreen';
 
 
 export const FeedScreen = () => {
+  const [isAddPostVisible, setAddPostVisible] = useState(false);
+
+  const handlePost = (text: string) => {
+    console.log('New Post:', text);
+    // You can handle the new post here (e.g., send it to your backend or update the state)
+  };
+
+  if (isAddPostVisible) {
+    return (
+      <AddPostScreen
+        onClose={() => setAddPostVisible(false)}
+        onPost={handlePost}
+      />
+    );
+  }
+
   return (
     <View style={styles.container}>
       <PostView
@@ -21,7 +43,9 @@ export const FeedScreen = () => {
       />
 
       <View style={styles.overlayContainer}>
-        <TouchableOpacity style={styles.newPostButton}>
+        <TouchableOpacity
+          style={styles.newPostButton}
+          onPress={() => setAddPostVisible(true)}>
           <Icon name="plus" size={20} color="white" />
         </TouchableOpacity>
       </View>
@@ -48,7 +72,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
+    shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.8,
     shadowRadius: 2,
     elevation: 5,
