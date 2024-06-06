@@ -23,7 +23,7 @@ const PostView = ({
   const [like, setLike] = useState(liked);
 
   const changeLike = () => {
-    setLike(prev => !prev);
+    setLike((prev: any) => !prev);
   };
 
   return (
